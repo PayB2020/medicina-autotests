@@ -33,6 +33,8 @@ mvn test
 # другой хост/порт
 mvn test -DbaseUrl=http://localhost:8083/v1
 
+mvn test -DbaseUrl=http://45.8.229.106:9080/v1
+
 # сервис запущен с профилем security (нужен токен)
 mvn test -DapiToken=dev-secret-token
 ```
