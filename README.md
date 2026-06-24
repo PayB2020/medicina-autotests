@@ -1,7 +1,8 @@
 # medicina-autotests
 
-Автотесты REST API мок-сервиса **«Медицина — ВТБ Онлайн»** на Cucumber (BDD).
+Автотесты REST API мок-сервиса **«Медицина — ВТБ Онлайн»** на Cucumber (BDD), на **Kotlin**.
 
+- **Kotlin** (kotlin-maven-plugin) — язык step-кода.
 - **Cucumber 7** (JUnit Platform engine) — сценарии на русском (`# language: ru`).
 - **REST-assured** — HTTP-запросы и проверки.
 - **AssertJ** — ассерты.
@@ -41,8 +42,8 @@ mvn test -DapiToken=dev-secret-token
 | Путь | Назначение |
 |---|---|
 | `src/test/resources/features/*.feature` | сценарии (Gherkin, ru) |
-| `src/test/java/.../steps` | шаги (step definitions) |
-| `src/test/java/.../support/ApiContext.java` | конфиг запуска + общий контекст сценария |
-| `src/test/java/.../RunCucumberTest.java` | раннер JUnit Platform |
+| `src/test/kotlin/.../steps` | шаги (step definitions) |
+| `src/test/kotlin/.../support/ApiContext.kt` | конфиг запуска + общий контекст сценария |
+| `src/test/kotlin/.../RunCucumberTest.kt` | раннер JUnit Platform |
 
 Отчёты после прогона: `target/cucumber-report.html`, `target/cucumber.json`.

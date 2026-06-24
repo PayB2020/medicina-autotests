@@ -15,6 +15,8 @@
         <maven.compiler.release>21</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+        <kotlin.version>2.0.21</kotlin.version>
+        <kotlin.jvmTarget>21</kotlin.jvmTarget>
         <cucumber.version>7.18.1</cucumber.version>
         <junit.version>5.10.2</junit.version>
         <junit-platform.version>1.10.2</junit-platform.version>
@@ -42,6 +44,12 @@
     </dependencyManagement>
 
     <dependencies>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib</artifactId>
+            <version>${kotlin.version}</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
@@ -85,12 +93,34 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <version>${kotlin.version}</version>
+                <configuration>
+                    <jvmTarget>${kotlin.jvmTarget}</jvmTarget>
+                </configuration>
+                <executions>
+                    <!-- Все исходники в test-scope: компилируем только src/test/kotlin. -->
+                    <execution>
+                        <id>test-compile</id>
+                        <goals>
+                            <goal>test-compile</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirs>
+                                <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
+                            </sourceDirs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
                     <includes>
-                        <include>**/RunCucumberTest.java</include>
+                        <include>**/RunCucumberTest.*</include>
                     </includes>
                     <!-- Прокидываем системные свойства запуска внутрь тестов. -->
                     <systemPropertyVariables>
