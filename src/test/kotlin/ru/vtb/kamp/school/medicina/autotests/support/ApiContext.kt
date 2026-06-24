@@ -15,7 +15,7 @@ import io.restassured.specification.RequestSpecification
  */
 class ApiContext {
 
-    private val baseUrl: String = prop("baseUrl", "http://localhost:8083/v1")
+    private val baseUrl: String = prop("baseUrl", "http://45.8.229.106:9080/v1")
     private val sessionId: String = prop("sessionId", "autotest-session")
     private val apiToken: String = prop("apiToken", "")
 
