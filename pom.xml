@@ -139,7 +139,7 @@
             <id>defaults</id>
             <activation><activeByDefault>true</activeByDefault></activation>
             <properties>
-                <baseUrl>http://localhost:8083/v1</baseUrl>
+                <baseUrl>http://45.8.229.106:9080/v1</baseUrl>
                 <sessionId>autotest-session</sessionId>
                 <apiToken></apiToken>
             </properties>
