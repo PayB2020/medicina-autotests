@@ -86,6 +86,11 @@ class ApiSteps(private val ctx: ApiContext) {
         assertThat(actual).isEqualTo(expected)
     }
 
+    @То(value = "в ответе есть текст {string}")
+    fun естьТекст(expected: String) {
+        assertThat(lastResponse().body().asString()).contains(expected)
+    }
+
     @То("в ответе есть непустой массив {string}")
     fun непустойМассив(jsonPath: String) {
         val list = lastResponse().jsonPath().getList<Any>(jsonPath)
