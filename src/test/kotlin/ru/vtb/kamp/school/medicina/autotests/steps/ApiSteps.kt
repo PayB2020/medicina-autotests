@@ -19,34 +19,34 @@ class ApiSteps(private val ctx: ApiContext) {
     private fun lastResponse() = ctx.lastResponse ?: error("ответ ещё не получен")
 
     @Дано("тело запроса:")
-    fun телоЗапроса(body: String) {
+    fun setRequestBody(body: String) {
         this.requestBody = body
     }
 
     @Дано("тело запроса с полями:")
-    fun телоЗапросаСПолями(fields: Map<String, String>) {
+    fun setRequestBodyFromFields(fields: Map<String, String>) {
         this.requestBody = fields.entries.joinToString(
             prefix = "{", postfix = "}", separator = ","
         ) { "\"${it.key}\":\"${it.value}\"" }
     }
 
     @Когда("отправляю POST на {string}")
-    fun отправляюPost(path: String) {
+    fun sendPost(path: String) {
         ctx.lastResponse = ctx.request().body(ctx.resolve(requestBody)).post(path)
     }
 
     @Когда("отправляю PUT на {string}")
-    fun отправляюPut(path: String) {
+    fun sendPut(path: String) {
         ctx.lastResponse = ctx.request().body(ctx.resolve(requestBody)).put(path)
     }
 
     @Когда("отправляю GET на {string}")
-    fun отправляюGet(path: String) {
+    fun sendGet(path: String) {
         ctx.lastResponse = ctx.request().get(path)
     }
 
     @Когда("загружаю документ на {string} с полями:")
-    fun загружаюДокумент(path: String, fields: Map<String, String>) {
+    fun uploadDocument(path: String, fields: Map<String, String>) {
         val spec = ctx.multipartRequest()
         for ((key, value) in fields) {
             spec.multiPart(key, ctx.resolve(value))
@@ -60,14 +60,14 @@ class ApiSteps(private val ctx: ApiContext) {
     }
 
     @И("сохраняю поле {string} из ответа как {string}")
-    fun сохраняюПоле(jsonPath: String, varName: String) {
+    fun saveResponseField(jsonPath: String, varName: String) {
         val value = lastResponse().jsonPath().getString(jsonPath)
         assertThat(value).`as`("значение поля %s для сохранения в %s", jsonPath, varName).isNotNull()
         ctx.putVar(varName, value)
     }
 
     @И("сохраняю id свободного слота из ответа как {string}")
-    fun сохраняюСвободныйСлот(varName: String) {
+    fun saveFreeSlotId(varName: String) {
         // Расписание: days[].periods[].slots[]. Берём id первого слота с available == true.
         val slotId = lastResponse().jsonPath()
             .getString("days.periods.slots.flatten().findAll { it.available == true }.id[0]")
@@ -76,35 +76,35 @@ class ApiSteps(private val ctx: ApiContext) {
     }
 
     @То("код ответа {int}")
-    fun кодОтвета(expected: Int) {
+    fun responseStatusCode(expected: Int) {
         assertThat(lastResponse().statusCode()).isEqualTo(expected)
     }
 
     @То("в ответе поле {string} равно {string}")
-    fun полеРавно(jsonPath: String, expected: String) {
+    fun responseFieldEquals(jsonPath: String, expected: String) {
         val actual = lastResponse().jsonPath().getString(jsonPath)
         assertThat(actual).isEqualTo(expected)
     }
 
     @То(value = "в ответе есть текст {string}")
-    fun естьТекст(expected: String) {
+    fun responseContainsText(expected: String) {
         assertThat(lastResponse().body().asString()).contains(expected)
     }
 
     @То("в ответе есть непустой массив {string}")
-    fun непустойМассив(jsonPath: String) {
+    fun responseHasNonEmptyArray(jsonPath: String) {
         val list = lastResponse().jsonPath().getList<Any>(jsonPath)
         assertThat(list).isNotNull().isNotEmpty()
     }
 
     @То("в ответе есть поле {string}")
-    fun естьПоле(jsonPath: String) {
+    fun responseHasField(jsonPath: String) {
         val value = lastResponse().jsonPath().get<Any>(jsonPath)
         assertThat(value).`as`("поле %s присутствует в ответе", jsonPath).isNotNull()
     }
 
     @То("тип содержимого ответа содержит {string}")
-    fun типСодержимого(expected: String) {
+    fun responseContentTypeContains(expected: String) {
         assertThat(lastResponse().contentType).contains(expected)
     }
 }
