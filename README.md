@@ -68,6 +68,4 @@ mvn allure:report
 mvn allure:serve
 ```
 
-> Для `allure:serve`/`allure:report` нужен доступ в интернет при первом запуске
-> (Maven-плагин скачивает дистрибутив Allure версии `${allure.version}`).
 
