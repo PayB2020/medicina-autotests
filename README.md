@@ -58,8 +58,9 @@ mvn test -DapiToken=dev-secret-token
 # 1) прогнать тесты
 mvn test -DbaseUrl=http://45.8.229.106:9080/v1
 
-# 1.1) c
-mvn test -DbaseUrl=http://45.8.229.106:9080/v1 -Dcucumber.filter.tags="@medical-card"
+# 1.1) прогнать тесты c тэгом
+mvn clean
+mvn test -DbaseUrl=http://45.8.229.106:9080/v1 -Dtags=@medical-card 
 
 # 2) сгенерировать отчёт в target/site/allure-maven-plugin
 mvn allure:report

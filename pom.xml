@@ -25,6 +25,9 @@
         <allure.version>2.29.0</allure.version>
         <aspectj.version>1.9.22.1</aspectj.version>
         <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+
+        <!-- Tag-фильтр Cucumber. Переопределяется: mvn test -Dtags=@smoke -->
+        <tags>not @Disabled</tags>
     </properties>
 
     <dependencyManagement>
@@ -146,6 +149,12 @@
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
+                    <!-- Tag-фильтр Cucumber через JUnit Platform (надёжнее системного -D). -->
+                    <properties>
+                        <configurationParameters>
+                            cucumber.filter.tags = ${tags}
+                        </configurationParameters>
+                    </properties>
                     <!-- Прокидываем системные свойства запуска внутрь тестов. -->
                     <systemPropertyVariables>
                         <baseUrl>${baseUrl}</baseUrl>
