@@ -1,5 +1,6 @@
 package ru.vtb.kamp.school.medicina.autotests.support
 
+import io.qameta.allure.restassured.AllureRestAssured
 import io.restassured.RestAssured
 import io.restassured.response.Response
 import io.restassured.specification.RequestSpecification
@@ -31,6 +32,7 @@ class ApiContext {
     /** Базовый request с общими заголовками (SessionID и, если задан, Bearer). */
     fun request(): RequestSpecification {
         val spec = RestAssured.given()
+            .filter(AllureRestAssured())
             .baseUri(baseUrl)
             .header("SessionID", sessionId)
             .contentType("application/json")
@@ -44,6 +46,7 @@ class ApiContext {
     /** Базовый request для multipart-загрузки: без contentType (RestAssured выставит сам). */
     fun multipartRequest(): RequestSpecification {
         val spec = RestAssured.given()
+            .filter(AllureRestAssured())
             .baseUri(baseUrl)
             .header("SessionID", sessionId)
             .accept("application/json")
