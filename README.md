@@ -49,3 +49,22 @@ mvn test -DapiToken=dev-secret-token
 | `src/test/kotlin/.../RunCucumberTest.kt` | раннер JUnit Platform |
 
 Отчёты после прогона: `target/cucumber-report.html`, `target/cucumber.json`.
+
+## Allure-отчёт
+
+Во время прогона результаты Allure пишутся в `target/allure-results`.
+
+```bash
+# 1) прогнать тесты
+mvn test
+
+# 2) сгенерировать отчёт в target/site/allure-maven-plugin
+mvn allure:report
+
+# либо открыть отчёт в браузере на встроенном сервере
+mvn allure:serve
+```
+
+> Для `allure:serve`/`allure:report` нужен доступ в интернет при первом запуске
+> (Maven-плагин скачивает дистрибутив Allure версии `${allure.version}`).
+
