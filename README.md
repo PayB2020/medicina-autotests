@@ -56,7 +56,7 @@ mvn test -DapiToken=dev-secret-token
 
 ```bash
 # 1) прогнать тесты
-mvn test
+mvn test -DbaseUrl=http://45.8.229.106:9080/v1
 
 # 2) сгенерировать отчёт в target/site/allure-maven-plugin
 mvn allure:report
