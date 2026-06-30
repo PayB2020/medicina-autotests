@@ -56,7 +56,7 @@ mvn test -DapiToken=dev-secret-token
 
 ```bash
 # 1) прогнать тесты
-mvn test -DbaseUrl=http://45.8.229.106:9080/v1
+mvn clean test -DbaseUrl=http://45.8.229.106:9080/v1
 
 # 1.1) прогнать тесты c тэгом
 mvn clean
