@@ -1,5 +1,6 @@
 package ru.vtb.kamp.school.medicina.autotests.steps
 
+import io.cucumber.java.After
 import io.cucumber.java.Before
 import ru.vtb.kamp.school.medicina.autotests.support.ApiContext
 
@@ -10,11 +11,11 @@ import ru.vtb.kamp.school.medicina.autotests.support.ApiContext
 class Hooks(private val ctx: ApiContext) {
 
     /**
-     * Сброс состояния перед каждым сценарием фичи @appointmentsV2:
+     * Сброс состояния после каждым сценарием фичи @appointmentsV2:
      * отменяем сид-запись appt-001, чтобы создание новой начиналось «с чистого листа».
      * Ошибки игнорируем (записи могло не быть) — хук не должен ронять сценарий.
      */
-    @Before("@appointmentsV2")
+    @After("@appointmentsV2")
     fun resetAppointment() {
         runCatching {
             ctx.request()
