@@ -3,7 +3,7 @@ package ru.vtb.kamp.school.medicina.autotests.steps
 import io.cucumber.java.After
 import io.cucumber.java.Before
 import ru.vtb.kamp.school.medicina.autotests.support.ApiContext
-import ru.vtb.kamp.school.medicina.autotests.support.Db
+
 
 /**
  * Пре-хуки сценариев. [ApiContext] инжектится PicoContainer —
@@ -12,7 +12,7 @@ import ru.vtb.kamp.school.medicina.autotests.support.Db
 class Hooks(private val ctx: ApiContext) {
 
     /** Доступ к БД для выполнения SQL в хуках (jdbc:postgresql://45.8.229.106:9432/medcard). */
-    private val db = Db()
+
 
     /**
      * Глобальный пре-хук: выполняется ПЕРЕД КАЖДЫМ сценарием (без тега — на все фичи).
@@ -22,10 +22,6 @@ class Hooks(private val ctx: ApiContext) {
     @Before
     fun beforeAny() {
         // Пример выполнения SQL перед тестом (readonly-аккаунт — только SELECT).
-        runCatching {
-            db.execute("update patients set is_active= false;")
-            db.execute("update patients set is_active= true where id = '22222222-2222-2222-2222-222222222777'")
-        }.onFailure { println(">> [beforeAny] SQL пропущен: ${it.message}") }
 
     }
 
