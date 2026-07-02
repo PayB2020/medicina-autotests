@@ -24,6 +24,7 @@
         <assertj.version>3.26.3</assertj.version>
         <allure.version>2.29.0</allure.version>
         <aspectj.version>1.9.22.1</aspectj.version>
+        <postgresql.version>42.7.4</postgresql.version>
         <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
 
         <!-- Tag-фильтр Cucumber. Переопределяется: mvn test -Dtags=@smoke -->
@@ -109,6 +110,12 @@
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-rest-assured</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
