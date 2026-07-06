@@ -24,12 +24,11 @@ import ru.vtb.kamp.school.medicina.autotests.support.Db
 fun beforeAll() {
     runCatching {
         val db = Db()
+        db.execute("update patients set is_active= false;")
         db.execute("insert into patients (id, first_name, last_name, middle_name, last_name_initial, age_label, birth_date, gender, phone,\n" +
                 "                      oms, snils, relation, oms_attached, attached_clinic_id, is_active)\n" +
-                "values ('22222222-2222-2222-2222-222222222777','Иван','Иванович','Иванов','В.','33 года','1993-03-05','male','+79031234561','7701000000000023','214-998-477 16','adult',true,'11111111-1111-1111-1111-111111111101',false\n" +
+                "values ('22222222-2222-2222-2222-222222222777','Иван','Иванович','Иванов','В.','33 года','1993-03-05','male','+79031234561','7701000000000023','214-998-477 16','adult',true,'11111111-1111-1111-1111-111111111101',true\n" +
                 "       );")
-        db.execute("update patients set is_active= false;")
-        db.execute("update patients set is_active= true where id = '22222222-2222-2222-2222-222222222777'")
     }.onFailure { println(">> [beforeAll] SQL пропущен: ${it.message}") }
 }
 
@@ -62,5 +61,15 @@ class Hooks(private val ctx: ApiContext) {
             db.execute("delete from patients where last_name = 'Веремеенко' ")
         }.onFailure { println(">> [beforeAny] SQL пропущен: ${it.message}") }
     }
-
+//    @After("@appointmentsV2")
+//    fun resetAppointment() {
+//        runCatching {
+//            ctx.request()
+//                .body(
+//                    """{"patientId":"22222222-2222-2222-2222-222222222201",""" +
+//                            """"appointmentId":"appt-001","reason":"pre-test reset"}"""
+//                )
+//                .post("/appointments/cancel")
+//        }
+//    }
 }
