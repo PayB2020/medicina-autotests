@@ -57,9 +57,9 @@ class Hooks(private val ctx: ApiContext) {
     fun beforeAny() {
         // Пример выполнения SQL перед тестом (readonly-аккаунт — только SELECT).
         runCatching {
-            db.execute("delete  from service_appointments where patient_id in (select id from patients where last_name = 'Веремеенко' and firstName = 'Пётр');")
-            db.execute("delete  from appointments where patient_id in (select id from patients where last_name = 'Веремеенко' and firstName = 'Пётр');")
-            db.execute("delete  from patients where last_name = 'Веремеенко' and firstName = 'Пётр'")
+            db.execute("delete  from service_appointments where patient_id in (select id from patients where last_name = 'Веремеенко' and first_name = 'Пётр');")
+            db.execute("delete  from appointments where patient_id in (select id from patients where last_name = 'Веремеенко' and first_name = 'Пётр');")
+            db.execute("delete  from patients where last_name = 'Веремеенко' and first_name = 'Пётр'")
         }.onFailure { println(">> [beforeAny] SQL пропущен: ${it.message}") }
     }
 //    @After("@appointmentsV2")
