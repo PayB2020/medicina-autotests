@@ -30,6 +30,22 @@ fun beforeAll() {
                 "values ('22222222-2222-2222-2222-222222222777','Иван','Иванович','Иванов','В.','33 года','1993-03-05','male','+79031234561','7701000000000023','214-998-477 16','adult',true,'11111111-1111-1111-1111-111111111101',true\n" +
                 "       );")
     }.onFailure { println(">> [beforeAll] SQL пропущен: ${it.message}") }
+
+
+//    runCatching {
+//        val ctx = ApiContext()
+//        ctx.request()
+//            .body(
+//                """{"patientId":"22222222-2222-2222-2222-222222222777","type":"adult",""" +
+//                        """"firstName":"Иван","lastName":"Иванович","middleName":"Иванов",""" +
+//                        """"birthDate":"1993-03-05","gender":"male","phone":"+79031234561",""" +
+//                        """"oms":"7701000000000023","snils":"214-998-477 16"}"""
+//            )
+//            .post("/patients")
+//        ctx.request()
+//            .body("""{"patientId":"22222222-2222-2222-2222-222222222777"}""")
+//            .put("/patients/active")
+//    }.onFailure { println(">> [beforeAll] API-вызов пропущен: ${it.message}") }
 }
 
 @AfterAll
