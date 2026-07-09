@@ -11,7 +11,7 @@ import java.sql.DriverManager
  * корректны SELECT-запросы; INSERT/UPDATE/DELETE вернут "permission denied".
  */
 class Db(
-    private val url: String = prop("dbUrl", "jdbc:postgresql://45.8.229.106:9432/medcard"),
+    private val url: String = prop("dbUrl", "jdbc:postgresql://45.8.229.106:9432/medcard?currentSchema=medicina"),
     private val user: String = prop("dbUser", "medcard_readonly"),
     private val password: String = prop("dbPassword", "medcard_readonly_pass"),
 ) {
